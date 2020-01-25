@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Entity\User;
 
 class SecurityController extends AbstractController
 {
@@ -14,16 +17,42 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
+        $error = $authenticationUtils->getLastAuthenticationError();        
+        $lastUsername = $authenticationUtils->getLastUsername();            
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    /**
+    * @Route("/register", name="register")
+    */
+    public function register(Request $request,UserPasswordEncoderInterface $passwordEncoder )
+    {
+        $error="";
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository(User::class);  
+        if($request->isMethod('POST'))
+        {
+            if( $repository->findOneBy(['email'=>$request->request->get('email')]) )
+                $error = "User already exist";
+            if( $request->request->get('password') !== $request->request->get('password2') )
+                $error = $error. " Passwords doesnt match";
+            else
+            {
+                dd("heh") ;    
+            $user = new User();
+            $user->setEmail($request->request->get('email'));
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                $request->request->get('password')
+            ));            
+            $em->persist($user);            
+            $em->flush();            
+            }
+        };
+        
+        return $this->render('register/register.html.twig',[
+            'error'=>$error
+        ]);
     }
 
     /**
@@ -33,4 +62,5 @@ class SecurityController extends AbstractController
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
+  
 }
