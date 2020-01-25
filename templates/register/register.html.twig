@@ -3,7 +3,9 @@
 {% block title %}Register account{% endblock %}
 
 {% block body %}
-<form method="post" class="text-center">
+{% include ('nav.html.twig') %}
+
+<form method="post" class="text-center ">
     {% if error %}
         <div class="alert alert-danger">{{ error }}</div>
     {% endif %}

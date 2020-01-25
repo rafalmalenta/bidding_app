@@ -18,12 +18,13 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();        
-        $lastUsername = $authenticationUtils->getLastUsername();            
+        $lastUsername = $authenticationUtils->getLastUsername();
+
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
-    * @Route("/register", name="register")
+    * @Route("/register", name="app_register")
     */
     public function register(Request $request,UserPasswordEncoderInterface $passwordEncoder )
     {
@@ -35,10 +36,9 @@ class SecurityController extends AbstractController
             if( $repository->findOneBy(['email'=>$request->request->get('email')]) )
                 $error = "User already exist";
             if( $request->request->get('password') !== $request->request->get('password2') )
-                $error = $error. " Passwords doesnt match";
+                $error = "Passwords doesnt match";
             else
             {
-                dd("heh") ;    
             $user = new User();
             $user->setEmail($request->request->get('email'));
             $user->setPassword($passwordEncoder->encodePassword(

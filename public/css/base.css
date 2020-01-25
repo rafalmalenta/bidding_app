@@ -1,4 +1,8 @@
 form{
-    margin: 0 auto;
     width: 60%;
+    margin:0px auto;
+    font-size: 22px;
+}
+nav{
+    font-size: 22px;
 }
