@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\RegisterChecker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,8 +15,10 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();        
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -24,34 +27,29 @@ class SecurityController extends AbstractController
     }
 
     /**
-    * @Route("/register", name="app_register")
-    */
-    public function register(Request $request,UserPasswordEncoderInterface $passwordEncoder )
+     * @Route("/register", name="app_register")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param RegisterChecker $registerChecker
+     * @return Response
+     */
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, RegisterChecker $registerChecker )
     {
-        $error="";
+
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository(User::class);  
-        if($request->isMethod('POST'))
+        if($registerChecker->checkIfCanRegister($request))
         {
-            if( $repository->findOneBy(['email'=>$request->request->get('email')]) )
-                $error = "User already exist";
-            if( $request->request->get('password') !== $request->request->get('password2') )
-                $error = "Passwords doesnt match";
-            else
-            {
             $user = new User();
             $user->setEmail($request->request->get('email'));
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
                 $request->request->get('password')
-            ));            
-            $em->persist($user);            
-            $em->flush();            
-            }
-        };
-        
+            ));
+            $em->persist($user);
+            $em->flush();
+        }
         return $this->render('register/register.html.twig',[
-            'error'=>$error
+            'error'=>$registerChecker->getError()
         ]);
     }
 
