@@ -35,18 +35,20 @@ class SecurityController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, RegisterChecker $registerChecker )
     {
-
         $em = $this->getDoctrine()->getManager();
-        if($registerChecker->checkIfCanRegister($request)){
-            $user = new User();
-            $user->setEmail($request->request->get('email'));
-            $user->setPassword($passwordEncoder->encodePassword(
-                $user,
-                $request->request->get('password')
-            ));
-            $em->persist($user);
-            $em->flush();
+        if($request->isMethod('POST')) {
+            if ($registerChecker->checkIfCanRegister($request)) {
+                $user = new User();
+                $user->setEmail($request->request->get('email'));
+                $user->setPassword($passwordEncoder->encodePassword(
+                    $user,
+                    $request->request->get('password')
+                ));
+                $em->persist($user);
+                $em->flush();
+            }
         }
+
         return $this->render('register/register.html.twig');
     }
 

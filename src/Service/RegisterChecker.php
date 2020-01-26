@@ -10,7 +10,6 @@ class RegisterChecker
 {
     private $em;
     private  $fb;
-    //private $error="";
     public function __construct(FlashBagInterface $fb, EntityManagerInterface $em)
     {
         $this->em = $em;
@@ -43,7 +42,7 @@ class RegisterChecker
 
     public function checkIfCanRegister($request)
     {
-        if (!$this->IsUserEmailFree($request->request - get('email')))
+        if (!$this->IsUserEmailFree($request->request->get('email')))
             return false;
         if (!$this->isPasswordLengthOk($request->request->get('password')))
             return false;

@@ -93,7 +93,7 @@ class SecurityAuthenticator extends AbstractFormLoginAuthenticator implements Pa
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        return new RedirectResponse($this->urlGenerator->generate('main'));
+        return new RedirectResponse($this->urlGenerator->generate('account'));
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
 
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

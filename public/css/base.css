@@ -9,3 +9,7 @@ nav{
 .form-control{
     box-sizing: border-box;
 }
+div.show{
+    background-color: #bbbbbb;
+    width: 100%;
+}

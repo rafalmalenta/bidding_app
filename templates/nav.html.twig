@@ -21,9 +21,9 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Welcome {{ app.user.email }}
                 </a>
-                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
-                    <a class="dropdown-item" href="#">My account</a>
+                    <a class="dropdown-item" href="{{path('account')}}">My account</a>
                 </div>
             {% endif %}
             </li>
