@@ -6,9 +6,11 @@
 {% include ('nav.html.twig') %}
 
 <form method="post" class="text-center ">
-    {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-    {% endif %}
+
+    {% for messege in  app.flashes('error') %}
+        <div {{  app.session.flashBag.peek('error')|length >0 ? '': 'class="alert alert-danger"'}}>{{ messege }}</div>
+    {% endfor %}
+
 
     {% if app.user %}
         <div class="mb-3">

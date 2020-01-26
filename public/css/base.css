@@ -6,3 +6,6 @@ form{
 nav{
     font-size: 22px;
 }
+.form-control{
+    box-sizing: border-box;
+}

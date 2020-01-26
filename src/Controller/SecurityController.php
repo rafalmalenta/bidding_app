@@ -37,8 +37,7 @@ class SecurityController extends AbstractController
     {
 
         $em = $this->getDoctrine()->getManager();
-        if($registerChecker->checkIfCanRegister($request))
-        {
+        if($registerChecker->checkIfCanRegister($request)){
             $user = new User();
             $user->setEmail($request->request->get('email'));
             $user->setPassword($passwordEncoder->encodePassword(
@@ -48,9 +47,7 @@ class SecurityController extends AbstractController
             $em->persist($user);
             $em->flush();
         }
-        return $this->render('register/register.html.twig',[
-            'error'=>$registerChecker->getError()
-        ]);
+        return $this->render('register/register.html.twig');
     }
 
     /**
