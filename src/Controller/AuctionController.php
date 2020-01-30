@@ -21,6 +21,7 @@ class AuctionController extends AbstractController
         //dd($categories);
         return $this->render('auction/index.html.twig', [
             'categories' => $categories,
+            'parent' => "",
         ]);
     }
     /**
@@ -29,9 +30,12 @@ class AuctionController extends AbstractController
     public function categoryView(EntityManagerInterface $em, $category){
 
         $repository = $em->getRepository(Category::class);
+        $parent = $repository->findOneBy(['name'=>$category])->getParent();
         $subCategories = $repository->findOneBy(['name'=>$category])->getChildren();
+        //dd($parent);
         return $this->render('auction/index.html.twig', [
             'categories' => $subCategories,
+            'parent' => $parent,
         ]);
     }
 }

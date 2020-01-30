@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello AuctionController!{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{asset('css/auctions.css')}}" />
 
+{% endblock %}
 {% block body %}
 {% include 'nav.html.twig' %}
 {% include 'auction/filters.html.twig' %}

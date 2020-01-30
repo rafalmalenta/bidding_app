@@ -1,0 +1,13 @@
+.side_nav{
+    background-color: #f8f9fa;
+    padding-top: 30px;
+    width: 20%;
+    height: 100%;
+    margin: auto auto;
+    max-width: 300px;
+    position: fixed;
+}
+nav{
+    position: fixed;
+
+}

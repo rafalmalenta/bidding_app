@@ -1,0 +1,1 @@
+Bidding app made with symfony not finished yet
