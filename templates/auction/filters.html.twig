@@ -1,8 +1,5 @@
-
-{% for category in categories %}
-    <ul class="category_list">{{ category.name }}
-    {% for sub_category in category.children %}
-        <li> <a href="{{ path('auctions_category', {'category': sub_category.name }) }}" > {{ sub_category.name }} </a></li>
-        {% endfor %}
-    </ul>
+<ul>
+{% for sub_category in categories %}
+    <li><a href="{{ path('auctions_category', {'category': sub_category.name }) }}" > {{ sub_category.name }} </a></li>
 {% endfor %}
+</ul>

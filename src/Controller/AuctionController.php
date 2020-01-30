@@ -24,15 +24,14 @@ class AuctionController extends AbstractController
         ]);
     }
     /**
-     * @Route("/auctions/{category}", name="auctions_category")
+     * @Route("/auctions/category/{category}", name="auctions_category")
      */
     public function categoryView(EntityManagerInterface $em, $category){
 
         $repository = $em->getRepository(Category::class);
-        $categories = $repository->findBy(['name'=>$category]);
-        //$subCategories = $categories->getChildren();
+        $subCategories = $repository->findOneBy(['name'=>$category])->getChildren();
         return $this->render('auction/index.html.twig', [
-            'categories' => $categories,
+            'categories' => $subCategories,
         ]);
     }
 }
