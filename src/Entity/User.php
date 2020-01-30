@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +34,7 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
 
     public function getId(): ?int
     {
@@ -110,4 +113,13 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection|Auction[]
+     */
+    public function getAuctions(): Collection
+    {
+        return $this->auctions;
+    }
+
 }

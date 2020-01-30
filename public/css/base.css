@@ -13,3 +13,8 @@ div.show{
     background-color: #bbbbbb;
     width: 100%;
 }
+.auction>div{
+    width: 33%;
+    display: inline-block;
+
+}

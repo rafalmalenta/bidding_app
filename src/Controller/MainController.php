@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,8 +15,7 @@ class MainController extends AbstractController
      */
     public function index(Request $rq):Response
     {
-        //dump($User::class);
-        //dump($this->getDoctrine()->getManager()->getRepository(User::class)->findAll());
+
         return $this->render('main/index.html.twig',[
             'data'=>$this
         ]);
