@@ -11,20 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuctionController extends AbstractController
 {
     /**
-     * @Route("/auctions", name="auctions")
-     */
-    public function index(EntityManagerInterface $em)
-    {
-
-        $repository = $em->getRepository(Category::class);
-        $categories = $repository->findBy(['parent'=>NULL]);
-        //dd($categories);
-        return $this->render('auction/index.html.twig', [
-            'categories' => $categories,
-            'parent' => "",
-        ]);
-    }
-    /**
      * @Route("/auctions/category/{category}", name="auctions_category")
      */
     public function categoryView(EntityManagerInterface $em, $category){

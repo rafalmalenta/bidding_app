@@ -1,20 +1,13 @@
+body *{
+    font-size: 24px;
+}
 form{
+    margin: 0 auto;
     width: 60%;
-    margin:0px auto;
-    font-size: 22px;
-}
-nav{
-    font-size: 22px;
-}
-.form-control{
-    box-sizing: border-box;
+    min-width: 400px;
 }
 div.show{
-    background-color: #bbbbbb;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
     width: 100%;
-}
-.auction>div{
-    width: 33%;
-    display: inline-block;
-
 }
