@@ -22,15 +22,17 @@ class AccountController extends AbstractController
 //        $category = $repository->findOneBy(['name'=>"computer components"]);
 //        $x = new Product();
 //        $procesordata= [
-//            "taktowanie",
-//            "ilość rdzeni",
+//            "producer",
+//            "socket",
+//            "procesor family",
+//            "chipset",
 //        ];
 //        $x->setCategory($category);
-//        $x->setName("Processors");
+//        $x->setName("mainboards");
 //        $x->setDistinctData($procesordata);
 //        $em->persist($x);
 //        $em->flush();
-        //dd($x);
+//        dd($x);
 
         return $this->render('account/index.html.twig', [
             'controller_name' => 'AccountController',
