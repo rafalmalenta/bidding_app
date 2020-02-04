@@ -34,14 +34,14 @@ class Category
     private $children;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attributes", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attribute", mappedBy="category")
      */
-    private $attributes;
+    private $attribute;
 
     public function __construct()
     {
         $this->children = new ArrayCollection();
-        $this->attributes = new ArrayCollection();
+        $this->attribute = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,27 +105,27 @@ class Category
     }
 
     /**
-     * @return Collection|Attributes[]
+     * @return Collection|Attribute[]
      */
-    public function getAttributes(): Collection
+    public function getAttribute(): Collection
     {
-        return $this->attributes;
+        return $this->attribute;
     }
 
-    public function addAttribute(Attributes $attribute): self
+    public function addAttribute(Attribute $attribute): self
     {
-        if (!$this->attributes->contains($attribute)) {
-            $this->attributes[] = $attribute;
+        if (!$this->attribute->contains($attribute)) {
+            $this->attribute[] = $attribute;
             $attribute->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeAttribute(Attributes $attribute): self
+    public function removeAttribute(Attribute $attribute): self
     {
-        if ($this->attributes->contains($attribute)) {
-            $this->attributes->removeElement($attribute);
+        if ($this->attribute->contains($attribute)) {
+            $this->attribute->removeElement($attribute);
             // set the owning side to null (unless already changed)
             if ($attribute->getCategory() === $this) {
                 $attribute->setCategory(null);

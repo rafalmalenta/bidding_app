@@ -18,8 +18,9 @@ class AuctionController extends AbstractController
         $auctions = [];
         $parent =[];
         $subCategories = [];
-        $parent = $repository->findOneBy(['name' => $category])->getParent();
-        if ($repository->findOneBy(['name' => $category])->getChildren()->count() != 0) {
+        $currentCategory = $repository->findOneBy(['name' => $category]);
+        $parent = $currentCategory->getParent();
+        if ($currentCategory->getChildren()->count() != 0) {
             //dd($repository->findOneBy(['name' => $category])->getChildren()->count());
             $subCategories = $repository->findOneBy(['name' => $category])->getChildren();
         }

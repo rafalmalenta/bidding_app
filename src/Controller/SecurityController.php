@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use App\Security\SecurityAuthenticator;
 use App\Service\RegisterChecker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\EventListener\RouterListener;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -33,7 +38,7 @@ class SecurityController extends AbstractController
      * @param RegisterChecker $registerChecker
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, RegisterChecker $registerChecker )
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, RegisterChecker $registerChecker,RouterInterface $router,GuardAuthenticatorHandler $guard,SecurityAuthenticator $authenticator )
     {
         $em = $this->getDoctrine()->getManager();
         if($request->isMethod('POST')) {
@@ -46,10 +51,18 @@ class SecurityController extends AbstractController
                 ));
                 $em->persist($user);
                 $em->flush();
+                return $guard->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $authenticator,
+                    'main'
+                );
+
             }
         }
 
         return $this->render('register/register.html.twig');
+
     }
 
     /**

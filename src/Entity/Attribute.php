@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AttributesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AttributeRepository")
  */
-class Attributes
+class Attribute
 {
     /**
      * @ORM\Id()
@@ -22,10 +22,15 @@ class Attributes
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="attributes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="attribute")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $possibleValue = [];
 
     public function getId(): ?int
     {
@@ -52,6 +57,18 @@ class Attributes
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getPossibleValue(): ?array
+    {
+        return $this->possibleValue;
+    }
+
+    public function setPossibleValue(?array $possibleValue): self
+    {
+        $this->possibleValue = $possibleValue;
 
         return $this;
     }
