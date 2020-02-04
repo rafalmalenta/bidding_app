@@ -1,5 +1,4 @@
-<div class="side_nav">
-<ul>
+<ul class="side_filters">
 {% if parent %}
     <li>Go back to <a href="{{ path('auctions_category', {'category': parent.name }) }}" > {{ parent.name }} </a></li>
 {% endif %}
@@ -7,4 +6,3 @@
     <li><a href="{{ path('auctions_category', {'category': category.name })}}" > {{ category.name|replace({'_':' ' })  }} </a></li>
 {% endfor %}
 </ul>
-</div>
