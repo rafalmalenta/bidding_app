@@ -12,4 +12,4 @@ Bidding app made with symfony not finished yet
 
 ###Demo       
 
-[view ](ba.rafalmalenta.usermd.net)
+[view](http://ba.rafalmalenta.usermd.net)
