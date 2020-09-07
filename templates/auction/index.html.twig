@@ -9,5 +9,17 @@
 {% block body %}
 {% include 'nav.html.twig' %}
 {% include 'auction/filters.html.twig' %}
+    <div class="items">
+        {% if items|length %}
+    {% for item in items %}
+        <div class="item">
+            <h4>{{ item.name }}</h4>
+            <div>{{ item.describtion }}</div>
+        </div>
+    {% endfor %}
+    {% else %}
+            <div>No items in this category</div>
+    {% endif %}
+    </div>
 
 {% endblock %}

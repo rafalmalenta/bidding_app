@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Items;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,19 +16,22 @@ class AuctionController extends AbstractController
     public function categoryView(EntityManagerInterface $em, $category){
 
         $repository = $em->getRepository(Category::class);
-        $auctions = [];
-        $parent =[];
+        $parent = [];
         $subCategories = [];
         $currentCategory = $repository->findOneBy(['name' => $category]);
         $parent = $currentCategory->getParent();
+        $items = $currentCategory->getItems();
         if ($currentCategory->getChildren()->count() != 0) {
-            //dd($repository->findOneBy(['name' => $category])->getChildren()->count());
             $subCategories = $repository->findOneBy(['name' => $category])->getChildren();
+            foreach ($subCategories as $cat){
+                $items = $cat->getItems();
+            }
         }
 
         return $this->render('auction/index.html.twig', [
             'categories' => $subCategories,
             'parent' => $parent,
+            'items' => $items,
         ]);
     }
 }

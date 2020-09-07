@@ -1,1 +1,12 @@
-
+.side_filters{
+    position: relative;
+    width: 20%;
+    float: left;
+}
+.items{
+    position: relative;
+    width: 70%;
+}
+.item{
+    background-color: aliceblue;
+}

@@ -16,7 +16,7 @@ class RegisterChecker
         $this->fb = $fb;
     }
     public function isPasswordLengthOk($password){
-        if (strlen($password) <= 6) {
+        if (strlen($password) <= 5) {
             $this->fb->add('error', "Password is too short");
             return false;
         }
