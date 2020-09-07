@@ -1,9 +1,14 @@
+body{
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+}
 body *{
     font-size: 24px;
 }
-body>div{
-    width: 60%;
-    margin: 0 auto;
+.container{
+    float: left;
+    position: relative;
+    width: 50%;
 }
 form{
     margin: 0 auto;
@@ -12,6 +17,46 @@ form{
 }
 div.show{
     margin: 0 0 0 0;
-    padding: 0 0 0 0;
+
     width: 100%;
+}
+nav, ul{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    display: block;
+    width: 100%;
+
+}
+aside{
+    position: relative;
+    width: 30%;
+    float: left;
+}
+nav li{
+    padding: 0px 0px 0px 0px;
+    width: 33%;
+    float: left;
+    list-style: none;
+}
+.dropdown div{
+    display: none;
+}
+li.nav-link{
+    text-decoration: none;
+}
+li a.nav-link{
+    padding-top:20px;
+    padding-bottom: 20px;
+    background-color: #e0e0e0;
+    color: #222222;
+    text-align: center;
+    text-decoration: none;
+    margin: 0px auto;
+    display: block;
+}
+@media all and (min-width: 1024px){
+
+}
+nav *{
+
 }
