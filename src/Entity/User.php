@@ -40,9 +40,15 @@ class User implements UserInterface
      */
     private $items;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Bids::class, mappedBy="who")
+     */
+    private $bids;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->bids = new ArrayCollection();
     }
 
 
@@ -157,6 +163,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($item->getOwner() === $this) {
                 $item->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bids[]
+     */
+    public function getBids(): Collection
+    {
+        return $this->bids;
+    }
+
+    public function addBid(Bids $bid): self
+    {
+        if (!$this->bids->contains($bid)) {
+            $this->bids[] = $bid;
+            $bid->setWho($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBid(Bids $bid): self
+    {
+        if ($this->bids->contains($bid)) {
+            $this->bids->removeElement($bid);
+            // set the owning side to null (unless already changed)
+            if ($bid->getWho() === $this) {
+                $bid->setWho(null);
             }
         }
 

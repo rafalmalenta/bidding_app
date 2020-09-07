@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ItemsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,6 +61,16 @@ class Items
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Bids::class, mappedBy="item")
+     */
+    private $bids;
+
+    public function __construct()
+    {
+        $this->bids = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -157,6 +169,37 @@ class Items
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bids[]
+     */
+    public function getBids(): Collection
+    {
+        return $this->bids;
+    }
+
+    public function addBid(Bids $bid): self
+    {
+        if (!$this->bids->contains($bid)) {
+            $this->bids[] = $bid;
+            $bid->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBid(Bids $bid): self
+    {
+        if ($this->bids->contains($bid)) {
+            $this->bids->removeElement($bid);
+            // set the owning side to null (unless already changed)
+            if ($bid->getItem() === $this) {
+                $bid->setItem(null);
+            }
+        }
 
         return $this;
     }
