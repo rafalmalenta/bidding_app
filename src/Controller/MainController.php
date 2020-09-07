@@ -15,7 +15,7 @@ class MainController extends AbstractController
      */
     public function index(Request $rq):Response
     {
-
+        //dd(phpinfo());
         return $this->render('main/index.html.twig',[
             'data'=>$this
         ]);

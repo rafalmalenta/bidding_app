@@ -33,10 +33,6 @@ class Category
      */
     private $children;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attribute", mappedBy="category")
-     */
-    private $attribute;
 
     public function __construct()
     {
@@ -98,37 +94,6 @@ class Category
             // set the owning side to null (unless already changed)
             if ($child->getParent() === $this) {
                 $child->setParent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Attribute[]
-     */
-    public function getAttribute(): Collection
-    {
-        return $this->attribute;
-    }
-
-    public function addAttribute(Attribute $attribute): self
-    {
-        if (!$this->attribute->contains($attribute)) {
-            $this->attribute[] = $attribute;
-            $attribute->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAttribute(Attribute $attribute): self
-    {
-        if ($this->attribute->contains($attribute)) {
-            $this->attribute->removeElement($attribute);
-            // set the owning side to null (unless already changed)
-            if ($attribute->getCategory() === $this) {
-                $attribute->setCategory(null);
             }
         }
 
