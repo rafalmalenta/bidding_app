@@ -31,14 +31,9 @@ class Items
     private $minimum_price;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $starting_price;
-
-    /**
      * @ORM\Column(type="date")
      */
-    private $finish_date;
+    private $expires;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -101,26 +96,14 @@ class Items
         return $this;
     }
 
-    public function getStartingPrice(): ?int
+    public function getExpires(): ?\DateTimeInterface
     {
-        return $this->starting_price;
+        return $this->expires;
     }
 
-    public function setStartingPrice(int $starting_price): self
+    public function setExpires(\DateTimeInterface $expires): self
     {
-        $this->starting_price = $starting_price;
-
-        return $this;
-    }
-
-    public function getFinishDate(): ?\DateTimeInterface
-    {
-        return $this->finish_date;
-    }
-
-    public function setFinishDate(\DateTimeInterface $finish_date): self
-    {
-        $this->finish_date = $finish_date;
+        $this->expires = $expires;
 
         return $this;
     }
